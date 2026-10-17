@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta property="og:title" content="gay老潜质综合评估量表" />
+    <meta property="og:description" content="一份结合了心理学量表与行为逻辑测试的深度鉴定系统" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>gay老潜质综合评估量表｜测测你离北朝还有多远？</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff8fab;
+            --primary-light: #ffc2d1;
+            --secondary: #8eecf5;
+            --text-main: #333;
+            --text-light: #666;
+            --bg-body: #f7f9fc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+        body.dark-mode {
+            --text-main: #f0f0f0;
+            --text-light: #bbbbbb;
+            --bg-body: #1a1a2e;
+            --card-bg: rgba(30, 30, 46, 0.95);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        body.dark-mode .desc-box { background: rgba(255,143,171,0.1); color: var(--text-main); }
+        body.dark-mode .option-btn { background: #2a2a3e; border-color: #3f3f5a; color: var(--text-main); }
+        body.dark-mode .option-btn:hover { background: #35354e; }
+        body.dark-mode .option-btn.selected { background: rgba(255,143,171,0.15); color: #ff8fab; border-color: var(--primary); }
+        body.dark-mode .conclusion-box { background: #252538; border-color: #3a3a52; color: #ddd; }
+        body.dark-mode .trait-text { color: #ccc; }
+        body.dark-mode .dim-header { color: #ddd; }
+        body.dark-mode .dim-bar-bg { background: #333; }
+        body.dark-mode .dim-desc { color: #bbb; }
+        body.dark-mode .section-title { color: #eee; }
+        body.dark-mode .report-header p { color: #bbb !important; }
+        body.dark-mode .progress-bar { background-color: #333; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif; -webkit-tap-highlight-color: transparent; }
+        .click-ripple { position: fixed; border-radius: 50%; background: rgba(255,143,171,0.4); transform: scale(0); pointer-events: none; animation: ripple-anim 0.6s linear forwards; z-index: 9999; }
+        @keyframes ripple-anim { to { transform: scale(2); opacity: 0; } }
+
+        body { background: linear-gradient(135deg, #ffc2d1 0%, #8eecf5 100%); background-attachment: fixed; color: var(--text-main); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 20px 10px; }
+        .container { background: var(--card-bg); width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); padding: 30px 20px; position: relative; margin-bottom: 20px; }
+
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.4s ease forwards; }
+        .page.active.spam-punish-effect { animation: hardcore-glitch 0.2s infinite !important; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-main { background: linear-gradient(45deg, #ff8fab, #ff5c8a); color: white; border: none; padding: 15px 30px; border-radius: 30px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 20px rgba(255,92,138,0.3); transition: all 0.2s; width: 100%; display: block; margin: 20px auto 0; }
+        .btn-main:active { transform: scale(0.96); }
+
+        .title-icon { font-size: 60px; text-align: center; margin-bottom: 10px; }
+        h1 { font-size: 24px; color: #ff5c8a; text-align: center; margin-bottom: 15px; }
+        .desc-box { background: #fff0f3; padding: 15px; border-radius: 12px; font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 25px; border-left: 4px solid var(--primary); }
+
+        .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn-prev { background: transparent; border: none; color: var(--primary); font-weight: bold; font-size: 15px; cursor: pointer; display: flex; align-items: center; }
+        .btn-prev.hidden { visibility: hidden; }
+        .progress-text { font-size: 13px; color: var(--text-light); font-weight: 500; }
+        .progress-bar { width: 100%; height: 8px; background-color: #f0f0f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #8eecf5, #ff8fab); width: 0%; transition: width 0.3s ease; }
+
+        .question-type-badge { display: inline-block; background: #e0f7fa; color: #00acc1; font-size: 12px; padding: 3px 10px; border-radius: 10px; margin-bottom: 10px; font-weight: bold; }
+        .question-text { font-size: 18px; line-height: 1.5; font-weight: 500; margin-bottom: 25px; min-height: 54px; }
+        .options-wrapper { display: flex; flex-direction: column; gap: 12px; }
+        .option-btn { background: #fff; border: 2px solid #eaeaea; color: var(--text-main); padding: 15px 20px; border-radius: 12px; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: left; font-weight: 500; display: flex; align-items: center; }
+        .option-btn:hover { border-color: var(--primary-light); background: #fff9fa; }
+        .option-btn.selected { background: #fff0f3; border-color: var(--primary); color: #e91e63; animation: pop 0.3s ease; box-shadow: 0 0 0 4px rgba(255,143,171,0.3); }
+        @keyframes pop { 0% { transform: scale(0.95); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
+        .report-header { text-align: center; border-bottom: 2px dashed #eee; padding-bottom: 20px; margin-bottom: 20px; }
+        .score-num { font-size: 50px; font-weight: 900; color: #ff5c8a; line-height: 1; margin: 10px 0; }
+        .tier-badge { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #d81b60; padding: 8px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; display: inline-block; }
+        .section-title { font-size: 16px; font-weight: bold; color: #333; margin: 25px 0 15px; display: flex; align-items: center; }
+        .section-title::before { content: ''; display: inline-block; width: 4px; height: 16px; background: var(--primary); margin-right: 8px; border-radius: 2px; }
+        .radar-box { max-width: 320px; margin: 0 auto; }
+        .dim-item { margin-bottom: 15px; }
+        .dim-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 5px; color: #555; }
+        .dim-bar-bg { width: 100%; height: 10px; background: #f0f0f0; border-radius: 5px; overflow: hidden; }
+        .dim-bar-fill { height: 100%; background: var(--primary); border-radius: 5px; }
+        .dim-desc { font-size: 12px; color: #888; margin-top: 4px; }
+        .conclusion-box { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 12px; padding: 20px; font-size: 14px; line-height: 1.6; color: #444; margin-bottom: 20px; text-align: left; }
+
+        @keyframes hardcore-glitch {
+            0% { transform: translate(0) skew(0deg); filter: blur(0px) contrast(150%) hue-rotate(-20deg) sepia(50%) saturate(400%); }
+            20% { transform: translate(-5px, 5px) skew(-5deg); filter: blur(1px) contrast(200%) hue-rotate(0deg) sepia(100%) saturate(600%) invert(15%); }
+            40% { transform: translate(-5px, -5px) skew(5deg); filter: blur(0px) contrast(150%) hue-rotate(-20deg) sepia(50%) saturate(400%); }
+            60% { transform: translate(5px, 5px) skew(-2deg); filter: blur(2px) contrast(250%) hue-rotate(15deg) sepia(80%) saturate(500%) invert(30%); }
+            80% { transform: translate(5px, -5px) skew(2deg); filter: blur(0px) contrast(150%) hue-rotate(-20deg) sepia(50%) saturate(400%); }
+            100% { transform: translate(0) skew(0deg); filter: blur(0px) contrast(150%) hue-rotate(-20deg) sepia(50%) saturate(400%); }
+        }
+        .spam-punish-effect { animation: hardcore-glitch 0.2s infinite; background-color: #2a0000 !important; color: #ff3333; background-image: repeating-linear-gradient(45deg, rgba(255,0,0,0.1) 0px, rgba(255,0,0,0.1) 10px, transparent 10px, transparent 20px) !important; }
+        .spam-punish-effect::before { content: "你乱点的吧"; position: fixed; top: 40%; left: -10%; width: 120%; text-align: center; font-size: 60px; color: rgba(255,0,0,0.4); z-index: 100; font-weight: 900; transform: rotate(-15deg); pointer-events: none; letter-spacing: 15px; text-shadow: 4px 4px 0px rgba(0,255,255,0.3), -4px -4px 0px rgba(255,255,0,0.3); white-space: nowrap; }
+        .spam-punish-effect .conclusion-box { background: #1a0000; border-color: #ff0000; color: #ff9999; box-shadow: 0 0 15px #ff0000; }
+        .spam-punish-effect .btn-main { background: #550000 !important; color: #ff6666 !important; border: 2px solid #ff0000; box-shadow: 0 0 10px #ff0000; }
+        .spam-punish-effect h3, .spam-punish-effect .section-title { color: #ff0000 !important; text-shadow: 2px 2px 0px #000; }
+        .spam-punish-effect p, .spam-punish-effect .trait-text { color: #ffcccc !important; font-weight: bold; }
+        .spam-punish-effect #final-score { font-size: 70px; text-shadow: 0 0 20px #ff0000; }
+        .spam-punish-effect .tier-badge { background: #000 !important; color: #f00 !important; border: 2px solid #f00 !important; font-size: 22px; }
+
+        .trait-section { margin-bottom: 15px; }
+        .trait-label { font-weight: bold; color: var(--primary); display: inline-block; margin-bottom: 4px; }
+        .trait-text { color: #555; text-align: justify; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        @media (max-width: 480px) {
+            body { padding: 15px 5px; }
+            .container { padding: 25px 15px; border-radius: 15px; }
+            h1 { font-size: 20px; }
+            .title-icon { font-size: 48px; }
+            .question-text { font-size: 16px; min-height: 48px; margin-bottom: 20px; }
+            .option-btn { padding: 12px 15px; font-size: 14px; border-radius: 10px; }
+            .score-num { font-size: 42px; }
+            .tier-badge { font-size: 16px; padding: 6px 16px; }
+            .conclusion-box { padding: 15px; font-size: 13px; }
+        }
+        @media (min-width: 481px) { .mobile-share-btn { display: none !important; } }
+        #dark-mode-toggle { position: fixed; top: 15px; right: 15px; z-index: 1000; background: var(--card-bg); border: 1px solid #ddd; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+        body.dark-mode #dark-mode-toggle { border-color: #3a3a52; }
+    </style>
+</head>
+<body>
+    <button id="dark-mode-toggle" onclick="toggleDarkMode()">&#127769;</button>
+    <div class="container">
+        <!-- 1. 欢迎页 -->
+        <div id="page-home" class="page active">
+            <div class="title-icon">&#127872;</div>
+            <h1>gay老潜质综合评估量表</h1>
+            <div class="desc-box">
+                <p>这是一份结合了<b>心理学量表</b>与<b>行为逻辑测试</b>的深度鉴定系统。</p><br>
+                <p>系统已接入 <strong>130题</strong> 的动态题库引擎，本次将为你随机抽取 <strong>50</strong> 道专属测验题，分为：</p>
+                <ul style="margin-left:20px; margin-top:5px; color:#666;">
+                    <li>同意度自评题 (测验潜意识态度)</li>
+                    <li>情景模拟选择题 (测验下意识行为)</li>
+                </ul><br>
+                <p>请放下防备，凭第一直觉作答。结束后将生成专属深度分析报告。</p>
+            </div>
+            <button class="btn-main" onclick="startTest()">抽取题库，开始鉴定</button>
+            <button class="btn-main" onclick="openEndingPicker()" style="background:linear-gradient(45deg,#a18cd1,#fbc2eb); margin-top:15px;">直达结局 - 选择你的鉴定结果（需管理员权限）</button>
+        </div>
+
+              <!-- 2. 答题页 -->
+        <div id="page-quiz" class="page">
+            <div class="top-nav">
+                <button class="btn-prev" id="btn-prev" onclick="prevQuestion()">上一题</button>
+                <span class="progress-text">进度: <span id="current-q">1</span> / 50</span>
+            </div>
+            <div style="font-size:12px; color:#ff8fab; text-align:center; margin-bottom:8px; font-weight:bold; letter-spacing:1px;">
+                请凭第一直觉作答
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+            <div id="q-badge" class="question-type-badge">态度自评题</div>
+            <h2 class="question-text" id="question-text">加载中...</h2>
+            <div class="options-wrapper" id="options-container"></div>
+        </div>
+
+        <!-- 3. 加载页 -->
+        <div id="page-loading" class="page" style="text-align:center; padding:60px 0;">
+            <div class="loader"></div>
+            <h3 style="color:#ff5c8a; margin-bottom:10px;">正在生成深度鉴定报告...</h3>
+            <p style="color:#888; font-size:14px;" id="loading-text">正在交叉比对行为与心理数据...</p>
+        </div>
+
+        <!-- 4. 结果页 -->
+        <div id="page-result" class="page">
+            <div class="report-header">
+                <p style="color:#888; font-size:14px;">综合潜质鉴定得分</p>
+                <div class="score-num" id="final-score">0</div>
+                <div class="tier-badge" id="tier-title">评级加载中</div>
+                <div id="tier-desc" style="font-size:14px; margin-top:12px; font-weight:bold; letter-spacing:1px;"></div>
+                <div id="national-rank" style="font-size:13px; color:var(--primary); margin-top:8px; font-weight:bold;"></div>
+            </div>
+            <div class="section-title">核心潜质雷达图</div>
+            <div class="radar-box"><canvas id="radarChart"></canvas></div>
+            <div class="section-title">多维度明细剖析</div>
+            <div id="dim-breakdown"></div>
+            <div class="section-title">鉴定官专属深度报告</div>
+            <div class="conclusion-box">
+                <h3 style="color:var(--primary); text-align:center; margin-bottom:18px; font-size:18px;" id="dom-trait-title">核心特征加载中</h3>
+                <div class="trait-section">
+                    <span class="trait-label">【潜意识解析】</span>
+                    <div class="trait-text" id="trait-analysis">加载中...</div>
+                </div>
+                <div class="trait-section">
+                    <span class="trait-label">【日常生活表现】</span>
+                    <div class="trait-text" id="trait-behavior">加载中...</div>
+                </div>
+                <div class="trait-section" style="margin-bottom:0;">
+                    <span class="trait-label">【进阶整活建议】</span>
+                    <div class="trait-text" id="trait-advice">加载中...</div>
+                </div>
+            </div>
+            <div style="text-align:center; margin:25px 0;">
+                <img id="qr-code" crossorigin="anonymous" style="width:120px; height:120px; border-radius:10px; border:3px solid #ff8fab; background:#fff;" alt="二维码">
+                <p style="font-size:12px; color:var(--text-light); margin-top:8px;">长按保存或扫码测测你的潜质</p>
+            </div>
+            <button class="btn-main mobile-share-btn" id="btn-share" onclick="nativeShare()" style="background:linear-gradient(45deg,#f6d365,#fda085); margin-bottom:15px;">分享给兄弟测测</button>
+            <button class="btn-main" id="btn-download" onclick="downloadResult()" style="background:linear-gradient(45deg,#8eecf5,#4facfe); margin-bottom:15px;">保存分析长图</button>
+            <button class="btn-main" onclick="resetTest()">重新抽取题库 / 再次测试</button>
+        </div>
+
+        <button id="btn-stop-glitch" onclick="stopGlitch()" style="display:none; position:fixed; bottom:30px; left:50%; transform:translateX(-50%); z-index:10000; background:rgba(30,30,46,0.95); color:#ff8fab; padding:12px 24px; border-radius:30px; border:2px solid #ff8fab; box-shadow:0 4px 15px rgba(0,0,0,0.5); font-weight:bold; font-size:15px; cursor:pointer; letter-spacing:1px; transition:all 0.3s; white-space:nowrap;">
+            关闭特效
+        </button>
+    </div>
+
+<script>
+// ================= 题库数据 (内嵌) =================
+var rawQuestionBank = [
+    // --- 维度A：感官偏好与审美 ---
+    { type:'likert', d:'A', r:false, t:"在布置个人空间时，比起极简、硬朗的风格，我更希望环境能带给我一种被柔软包裹着的安全感。" },
+    { type:'likert', d:'A', r:false, t:"选购日常用品（如文具、杯子）时，只要它的造型足够精巧可爱，哪怕稍微牺牲一点实用性我也愿意。" },
+    { type:'likert', d:'A', r:false, t:"在欣赏影视或游戏时，我常常会把注意力放在角色服装的布料质感、垂坠感和细节花纹上。" },
+    { type:'likert', d:'A', r:true,  t:"【反向】我认为日常穿搭的唯一标准就是耐脏、耐磨、方便活动，多余的装饰纯属累赘。" },
+    { type:'likert', d:'A', r:false, t:"比起强烈的对比色或暗黑系，我对饱和度低、柔和的色系（如浅色调、马卡龙色）有天然的好感。" },
+    { type:'likert', d:'A', r:false, t:"我觉得适度的自我修饰（比如保持发丝的柔顺、皮肤的触感）比糙汉子形象更能让人感到舒适。" },
+    { type:'likert', d:'A', r:false, t:"我偶尔会被一些做工极度精致、小巧的手工艺品或饰品吸引，即便它们对我来说没有任何实用价值。" },
+    { type:'likert', d:'A', r:true,  t:"【反向】我完全无法理解为什么有人要在物品上增加一些毫无用处的毛绒或挂坠。" },
+    { type:'likert', d:'A', r:false, t:"我觉得带有一定曲线感或垂坠感的设计，比直来直去的几何线条更有美感。" },
+    { type:'likert', d:'A', r:false, t:"买衣服时，哪怕是一件普通T恤，我也会非常在意它的领口形状是否显瘦、袖子是否有垂坠感。" },
+    { type:'likert', d:'A', r:false, t:"我对带有水果香、奶香或花香气息的日用品（如沐浴露、护手霜）毫无抵抗力。" },
+    { type:'likert', d:'A', r:false, t:"相比于金属或塑料材质，我潜意识里更喜欢抚摸珊瑚绒、丝绸等极度柔软的材料。" },
+    { type:'likert', d:'A', r:true,  t:"【反向】如果让我用粉色的床单或被套，我会觉得非常别扭甚至睡不着觉。" },
+    { type:'likert', d:'A', r:false, t:"我吃甜品或外观好看的食物时，第一反应往往是先欣赏它的造型并拍照，而不是立刻大口吃掉。" },
+    { type:'likert', d:'A', r:false, t:"我非常在意自己身上的气味，衣服如果有一点异味或汗味会让我极其难受。" },
+    { type:'likert', d:'A', r:true,  t:"【反向】我买鞋子只看重是否防滑耐穿，完全不在意它显得脚大还是脚小。" },
+    { type:'likert', d:'A', r:false, t:"冬天的时候，我特别喜欢那种把手缩在宽大的袖子里，只露出一点点手指的感觉。" },
+    { type:'likert', d:'A', r:false, t:"我吃水果或小零食的时候，喜欢把它们切成非常小块或者精致地摆盘后再吃。" },
+    { type:'likert', d:'A', r:false, t:"看到非常精致的糕点或马卡龙，即使我不饿，也会因为它们看起来很好看而产生购买欲。" },
+    { type:'likert', d:'A', r:false, t:"我对手部的保养比较在意，冬天洗完手会习惯性地涂抹护手霜以免干燥。" },
+    { type:'likert', d:'A', r:true,  t:"【反向】我不理解为什么水杯需要各种颜色和造型，能装水喝不漏就行。" },
+
+    // --- 维度B：肢体、空间与自我管理 ---
+    { type:'likert', d:'B', r:false, t:"在公共场合坐下时，我的肢体习惯更偏向于收拢以避免占用过多空间，而不是随意舒展大张大合。" },
+    { type:'likert', d:'B', r:false, t:"我对皮肤的触感很敏感，如果身上某处皮肤干燥起皮，我会觉得很难受并想办法去涂抹改善。" },
+    { type:'likert', d:'B', r:false, t:"在关门、放杯子、敲键盘时，我通常会下意识控制力度，尽量不发出粗鲁的碰撞声。" },
+    { type:'likert', d:'B', r:false, t:"我比较在意自己身体的洁净感，对明显的体毛、指甲边缘的不规整等细节会感到介意。" },
+    { type:'likert', d:'B', r:true,  t:"【反向】我拿取东西时动作通常比较大，偶尔碰翻旁边的小物件也不觉得有什么。" },
+    { type:'likert', d:'B', r:false, t:"在家独处放松时，我喜欢穿那种明显偏大、面料非常柔软、能把自己罩在里面的衣服。" },
+    { type:'likert', d:'B', r:false, t:"吃带包装的零食时，我倾向于撕开一个整齐的小口子，而不是暴力扯烂整个包装袋。" },
+    { type:'likert', d:'B', r:false, t:"拍照面对镜头时，我很少摆出那种很有攻击性或极其搞怪的动作，更倾向于收敛的姿态。" },
+    { type:'likert', d:'B', r:true,  t:"【反向】我完全不在乎衣服是否有一点皱褶，只要没破我就能直接穿出门。" },
+    { type:'likert', d:'B', r:false, t:"听到突然的巨响（如气球爆炸、重物掉落），我的身体会下意识地缩紧或轻微颤抖。" },
+    { type:'likert', d:'B', r:false, t:"喝水或吃东西时，我习惯用小口咀嚼/吞咽，而不是狼吞虎咽。" },
+    { type:'likert', d:'B', r:false, t:"双手捧着马克杯喝热饮时，我会觉得这个姿势让人有一种安心感。" },
+    { type:'likert', d:'B', r:false, t:"打哈欠或者大笑的时候，我会下意识地微微低头，或者用手掩一下嘴巴。" },
+    { type:'likert', d:'B', r:true,  t:"【反向】我走路的时候步伐很大，且双臂摆动幅度明显，觉得这样走路带风。" },
+    { type:'likert', d:'B', r:false, t:"走路时，我的脚尖通常是笔直向前或者微微内扣，几乎从来不会走外八字。" },
+    { type:'likert', d:'B', r:false, t:"在沙发上休息时，我更喜欢把双腿蜷缩起来抱住，而不是把腿伸直摊开。" },
+    { type:'likert', d:'B', r:true,  t:"【反向】我觉得吃饭发出声音或者大声吧唧嘴是很正常的事情，不在意这些细节。" },
+    { type:'likert', d:'B', r:false, t:"如果地上掉了一个小东西，我通常会并拢双腿蹲下去捡，而不是直接双腿叉开弯腰去捡。" },
+    { type:'likert', d:'B', r:false, t:"洗完脸后，我习惯用毛巾轻轻按压吸干水分，而不是用力在脸上来回粗暴地擦拭。" },
+    { type:'likert', d:'B', r:false, t:"感到寒冷时，我会下意识地双臂抱在胸前，或者耸起肩膀缩起脖子取暖。" },
+    { type:'likert', d:'B', r:true,  t:"【反向】我在家里经常光着膀子走来走去，觉得这样最放松自在。" },
+
+    // --- 维度C：情感共鸣与防御机制 ---
+    { type:'likert', d:'C', r:false, t:"玩沉浸式剧情游戏时，如果在做孤胆英雄拯救世界和被一个强大的存在无条件庇护之间选择，我内心其实更向往后者。" },
+    { type:'likert', d:'C', r:false, t:"看电影时，我更容易因为人物之间微妙的遗憾和情感羁绊而难过，而不是因为宏大的悲剧场面。" },
+    { type:'likert', d:'C', r:false, t:"当我在某项任务中受挫时，相比于别人告诉我你要坚强，我更希望听到没关系，你已经做得很好了，休息一下吧。" },
+    { type:'likert', d:'C', r:true,  t:"【反向】我认为在这个社会上生存，绝不能轻易向别人展示自己的软弱和眼泪。" },
+    { type:'likert', d:'C', r:false, t:"在团队合作中，我更喜欢提供情绪价值和辅助支持，而不是去承担制定最终决策的压力。" },
+    { type:'likert', d:'C', r:false, t:"我很容易察觉到谈话对象情绪上的细微变化（如语气变弱、眼神闪躲）。" },
+    { type:'likert', d:'C', r:false, t:"有时候我会感到一种莫名的疲惫，想要卸下所有社会赋予我的责任感，单纯做一个被人照顾的角色。" },
+    { type:'likert', d:'C', r:false, t:"面对别人的倾诉，我的第一反应通常是共情他们的委屈，而不是立刻指出他们的逻辑漏洞并给解决建议。" },
+    { type:'likert', d:'C', r:true,  t:"【反向】我极度反感那些遇到一点小事就容易情绪化的人，觉得他们不够理性。" },
+    { type:'likert', d:'C', r:false, t:"我对陪伴了我很久的无生命物体（如抱枕、旧文具）会产生感情，觉得把它们扔掉会有强烈的负罪感。" },
+    { type:'likert', d:'C', r:false, t:"在激烈的争吵中，即使我有理，对方一旦提高音量吼叫，我的第一反应往往是生理性的想哭或退缩，而不是怼回去。" },
+    { type:'likert', d:'C', r:false, t:"相比于去主动追求喜欢的人，我内心其实更渴望被一个温柔的人坚定地选择和偏爱。" },
+    { type:'likert', d:'C', r:true,  t:"【反向】面对朋友的求助，如果我觉得不合理，我会非常干脆冷酷地拒绝，毫不拖泥带水。" },
+    { type:'likert', d:'C', r:false, t:"当我犯了错被批评时，我会非常在意对方的语气，哪怕是很小的责备也会让我在心里难受很久。" },
+    { type:'likert', d:'C', r:false, t:"和别人产生分歧时，为了避免激烈的冲突，我常常会选择主动妥协或先认错。" },
+    { type:'likert', d:'C', r:false, t:"我经常会因为别人无意中的一句重话而内耗很久，不断反思是不是自己做错了什么。" },
+    { type:'likert', d:'C', r:true,  t:"【反向】我认为在亲密关系中，我必须是那个掌控全局、保护对方的绝对主导者。" },
+    { type:'likert', d:'C', r:false, t:"当看到别人很尴尬或下不来台时，我自己也会产生强烈的替人尴尬的生理不适甚至不敢看。" },
+    { type:'likert', d:'C', r:false, t:"夜深人静时，我有时会抱紧被子或枕头，觉得这种轻微的压迫感能缓解我的孤独情绪。" },
+    { type:'likert', d:'C', r:true,  t:"【反向】我信奉狼性文化和竞争，觉得同情心泛滥是阻碍一个人成功的最大绊脚石。" },
+
+    // --- 维度D：社交语境与边界感 ---
+    { type:'likert', d:'D', r:false, t:"在网络社交中，为了缓和语气或表达友好，我非常依赖颜文字、波浪号或没有攻击性的小动物表情包。" },
+    { type:'likert', d:'D', r:false, t:"在一个完全匿名的网络社区里，我更倾向于塑造一个温和、没有明显性别攻击性的人设。" },
+    { type:'likert', d:'D', r:false, t:"如果身边原本很刚强的朋友突然展现出非常细腻、甚至有些破防的一面，我觉得这很正常，甚至想安抚他。" },
+    { type:'likert', d:'D', r:false, t:"在玩网络游戏时，如果路人队友误判了我的性别，只要不影响打游戏，我通常懒得去刻意澄清。" },
+    { type:'likert', d:'D', r:true,  t:"【反向】如果有人在网上用稍微女性化或可爱的称呼叫我，我会感到非常反感并立刻纠正。" },
+    { type:'likert', d:'D', r:false, t:"在面对熟悉的亲密朋友时，我并不介意他们开一些关于我性别特质的玩笑（比如叫我老婆或类似的梗）。" },
+    { type:'likert', d:'D', r:false, t:"我觉得可爱这个词是对一个人很高的赞美，即使它被用在我自己身上。" },
+    { type:'likert', d:'D', r:false, t:"在选择网络头像时，比起风景、汽车或冷酷的角色，我更常使用风格柔软、二次元或小动物的图片。" },
+    { type:'likert', d:'D', r:true,  t:"【反向】我绝对不会在任何社交平台上使用二次元萌妹相关的表情包，觉得那太幼稚了。" },
+    { type:'likert', d:'D', r:false, t:"我偶尔会和关系极好的朋友使用叠词（如吃饭饭、睡觉觉）来活跃气氛或表达轻微的撒娇。" },
+    { type:'likert', d:'D', r:false, t:"如果有一个只允许女性进入的高质量下午茶餐厅，我曾幻想过如果自己能混进去体验一次就好了。" },
+    { type:'likert', d:'D', r:false, t:"在看动漫或影视剧时，比起热血战斗番，我其实更享受看节奏缓慢、温馨治愈的日常系/废萌系作品。" },
+    { type:'likert', d:'D', r:false, t:"对于虚拟主播（VTuber）或以可爱人设互动的网络文化，我具备较高的接受度甚至沉浸其中。" },
+    { type:'likert', d:'D', r:false, t:"在输入法里，我的常用表情前几个通常是软萌、委屈或者哭泣的表情包。" },
+    { type:'likert', d:'D', r:false, t:"在多人组队的游戏中，我其实很享受玩纯辅助或奶妈职业，默默跟在别人身后加血被保护的感觉。" },
+    { type:'likert', d:'D', r:true,  t:"【反向】我聊天时习惯只发文字，连标点符号都懒得加，绝对不用任何表情或颜文字。" },
+    { type:'likert', d:'D', r:false, t:"如果有长辈或不熟的人夸我长得文静、清秀，我内心其实并不会觉得受到了冒犯。" },
+    { type:'likert', d:'D', r:false, t:"在匿名群聊中，比起做引领话题的核心人物，我更喜欢做那个偶尔发个表情包卖萌的吉祥物。" },
+    { type:'likert', d:'D', r:false, t:"我很容易在网络上对语气极其温柔、声音好听的人产生莫名的好感和依赖。" },
+    { type:'likert', d:'D', r:true,  t:"【反向】我认为男人之间的友谊就应该建立在互称父子、大口喝酒的硬核交流上。" },
+
+    // ================= 情景模拟题 =================
+    { type:'choice', d:'A', t:"如果让你在卧室的空余角落添置一样东西，你最有可能选择：", options: [
+        {v:1, l:"一组哑铃或简易健身器材"}, {v:2, l:"一个实用的置物架"},
+        {v:4, l:"一盆生机勃勃的绿植"}, {v:5, l:"一个极度柔软、可以让人陷进去的懒人沙发"}]},
+    { type:'choice', d:'A', t:"挑选一款用来喷在卧室的空气清新剂/香氛，你会倾向于：", options: [
+        {v:1, l:"无所谓，能除味就行"}, {v:2, l:"干净清冷的雨后松木香"},
+        {v:4, l:"淡淡的白茶或柑橘香"}, {v:5, l:"带有微甜气息的香草、牛奶或蜜桃香"}]},
+    { type:'choice', d:'A', t:"在挑选一款个人使用的数码产品（如耳机）时，在音质相近的情况下：", options: [
+        {v:1, l:"只看哪款更便宜耐用"}, {v:2, l:"选择最经典的纯黑色或深灰色"},
+        {v:4, l:"选择白色或设计比较简约小巧的款式"}, {v:5, l:"会被某些特别的马卡龙色系或有设计感的外观瞬间种草"}]},
+    { type:'choice', d:'A', t:"遇到下雨天，你更愿意撑一把什么样的伞？", options: [
+        {v:1, l:"够大、伞骨够粗的黑伞，挡雨最重要"}, {v:2, l:"普通的纯色折叠伞"},
+        {v:4, l:"透明伞，或者颜色比较清新的伞"}, {v:5, l:"伞面带有一点小设计（如花边、渐变色或暗纹）的轻便伞"}]},
+    { type:'choice', d:'A', t:"如果朋友送了你一套精美的多色手账荧光笔，你的做法是：", options: [
+        {v:1, l:"扔进抽屉吃灰，几乎不用"}, {v:2, l:"偶尔拿出来随便划个重点"},
+        {v:4, l:"写字时会注意颜色的搭配，让版面好看点"}, {v:5, l:"忍不住按颜色渐变把它们整齐排列好，光是看着就觉得很治愈"}]},
+    { type:'choice', d:'A', t:"去超市购买个人洗发水，促使你最终拿下它的原因是：", options: [
+        {v:1, l:"强效控油去屑的硬核标语"}, {v:2, l:"大容量搞促销，性价比高"},
+        {v:4, l:"包装设计看起来简约高级"}, {v:5, l:"挤出来试闻了一下，是非常好闻的花果香或樱花香"}]},
+    { type:'choice', d:'A', t:"选购手机壳时，你会倾向于哪种款式？", options: [
+        {v:1, l:"纯黑防摔军工级别的硬壳"}, {v:2, l:"透明硅胶原色壳"},
+        {v:4, l:"带有简约插画或浅色调的轻薄壳"}, {v:5, l:"带有立体装饰、毛绒挂件或流沙闪粉的可爱壳"}]},
+    { type:'choice', d:'A', t:"在文具店挑选用来记日记的笔记本，你会选：", options: [
+        {v:1, l:"纯黑商务厚皮本"}, {v:2, l:"普通的牛皮纸线圈本"},
+        {v:4, l:"封面颜色清新柔和、纸质细腻的本子"}, {v:5, l:"带有精美插画、甚至带有一点绑带或磁扣设计的精装本"}]},
+
+    { type:'choice', d:'B', t:"遇到一个极其难拧开的玻璃罐头盖，你的第一反应通常是：", options: [
+        {v:1, l:"用尽全身力气死磕，不行就用刀撬"}, {v:3, l:"找块布垫着，或者拿去冲热水再试"},
+        {v:4, l:"试两下不行，暂且放弃，等会儿再说"}, {v:5, l:"下意识想拿着它去寻求身边力气更大的人的帮助"}]},
+    { type:'choice', d:'B', t:"天气稍微变冷的休息日，你在家里的保暖方式是：", options: [
+        {v:1, l:"开空调，或者随便套件旧外套"}, {v:2, l:"正常穿上秋衣秋裤"},
+        {v:4, l:"拿一条毯子盖在腿上"}, {v:5, l:"换上触感极度温暖的厚绒家居服，或者穿上长筒保暖袜"}]},
+    { type:'choice', d:'B', t:"喝带吸管的饮品时，你的潜意识习惯是：", options: [
+        {v:1, l:"大口猛吸，两三下喝完"}, {v:2, l:"一边喝一边无聊地用大牙把吸管咬扁"},
+        {v:4, l:"只用嘴唇轻轻抿着吸管口吸取"}, {v:5, l:"会下意识用门牙轻轻咬住吸管边缘，留下一点点浅浅的齿印"}]},
+    { type:'choice', d:'B', t:"收拾桌面上极其杂乱的各种线缆和小物件时，你的做法是：", options: [
+        {v:1, l:"一把抓起来全塞进抽屉最里面"}, {v:2, l:"随便找个皮筋捆一下扔盒子里"},
+        {v:4, l:"耐心地把它们一根根理顺卷好"}, {v:5, l:"不仅要理顺，还要用专门的理线带或好看的夹子把它们规整地固定好"}]},
+    { type:'choice', d:'B', t:"和几个人一起走在并不宽敞的人行道上，有路人迎面走来，你会：", options: [
+        {v:1, l:"笔直走自己的路，等对方让开"}, {v:2, l:"稍微侧一下肩膀"},
+        {v:4, l:"主动侧身并放慢脚步让对方先过"}, {v:5, l:"不仅让路，还会下意识把手臂收紧贴近身体，努力缩小自己的体积"}]},
+    { type:'choice', d:'B', t:"朋友讲了一个非常夸张好笑的笑话，你的肢体反应是：", options: [
+        {v:1, l:"毫无顾忌地仰天爆笑并用力拍大腿"}, {v:2, l:"正常地大声笑出来"},
+        {v:4, l:"笑得很开心，但身体动作不大"}, {v:5, l:"笑得前仰后合时，会不自觉地用手轻掩一下嘴巴或捂住肚子"}]},
+    { type:'choice', d:'B', t:"乘坐地铁或公交时，如果旁边有空位，你的坐姿通常是：", options: [
+        {v:1, l:"双腿大张，占据最大空间，极其放松"}, {v:2, l:"双腿自然平行放着，中规中矩"},
+        {v:4, l:"双腿轻轻并拢或脚踝交叉着放"}, {v:5, l:"紧紧并拢双腿，双手甚至会规矩且乖巧地叠放在膝盖上"}]},
+    { type:'choice', d:'B', t:"吃比较大个的汉堡或装满馅料的三明治时，你会：", options: [
+        {v:1, l:"张大嘴直接一口咬下去，吃相极其豪迈"}, {v:2, l:"正常吃，掉渣或者沾在脸上也无所谓"},
+        {v:4, l:"稍微把面包压扁一点再吃，尽量保持不掉渣"}, {v:5, l:"吃得很小心，生怕弄脏嘴角，吃的时候甚至会下意识用手或者纸巾挡着嘴"}]},
+
+    { type:'choice', d:'C', t:"听一首旋律非常悲伤但没有歌词的纯音乐，你更容易产生什么反应？", options: [
+        {v:1, l:"没什么感觉，只觉得调子很慢"}, {v:2, l:"觉得这首歌适合拿来做游戏的BGM"},
+        {v:4, l:"脑海中会浮现出一些个人的往事，觉得有些失落"}, {v:5, l:"感觉心脏被轻轻揪住，有一种想把自己蜷缩起来的冲动"}]},
+    { type:'choice', d:'C', t:"当由于你的小失误导致朋友的计划泡汤，朋友对你发脾气时，你会：", options: [
+        {v:1, l:"觉得对方小题大做，直接怼回去"}, {v:2, l:"压抑情绪，理性分析原因并承诺补偿"},
+        {v:4, l:"感到非常内疚，不断低头道歉"}, {v:5, l:"眼眶发红，觉得委屈又深深自责，甚至掉下眼泪"}]},
+    { type:'choice', d:'C', t:"如果在路上看到一只很干净但很小的流浪猫冲你喵喵叫，你会：", options: [
+        {v:1, l:"毫无波澜，直接大步走过去"}, {v:2, l:"觉得挺可怜，但自己赶时间不能管"},
+        {v:4, l:"停下来蹲下发出声音逗它一下"}, {v:5, l:"内心疯狂呼喊好可爱，极其渴望能把它抱在怀里安抚"}]},
+    { type:'choice', d:'C', t:"当你受到极大的委屈或面临崩溃边缘的压力时，你最倾向的排解方式是：", options: [
+        {v:1, l:"疯狂运动/打游戏/找个地方发泄暴力情绪"}, {v:2, l:"一个人闷头睡大觉，谁也不理"},
+        {v:4, l:"找关系最好的朋友大吐苦水"}, {v:5, l:"极度想要一个拥抱，想要在某个能包容自己的人面前大哭一场"}]},
+    { type:'choice', d:'C', t:"看到短视频里报道一位独居老人因为生活困难流泪的画面，你的反应是：", options: [
+        {v:1, l:"觉得是在卖惨，立刻划走"}, {v:2, l:"在心里感叹一下生活不易"},
+        {v:4, l:"心情变得沉重，在评论区留一句安慰"}, {v:5, l:"代入感极强，自己的眼圈也跟着红了，甚至半天缓不过神"}]},
+    { type:'choice', d:'C', t:"在小组作业中，组长分配给你的任务远超其他人，你会：", options: [
+        {v:1, l:"当场拍桌子翻脸不干了"}, {v:3, l:"有理有据地反驳，要求重新分配"},
+        {v:4, l:"虽然不情愿，但还是默默把活干完"}, {v:5, l:"不敢当面拒绝，只能自己默默承受委屈，晚上躲在被窝里越想越难受"}]},
+    { type:'choice', d:'C', t:"如果你的恋人或极其亲密的挚友比你强势/能力强很多，你潜意识里希望的相处模式是：", options: [
+        {v:1, l:"必须绝对平等，争个高低，谁也不服谁"}, {v:2, l:"互相尊重，各自保持独立空间"},
+        {v:4, l:"偶尔偷偷懒依赖对方，让对方做决定"}, {v:5, l:"极度享受被对方完全包容、甚至被当成小孩子一样全方位宠溺照顾"}]},
+    { type:'choice', d:'C', t:"在看恐怖片或者玩恐怖游戏突然遇到跳脸惊吓(Jump Scare)时，你的真实反应是：", options: [
+        {v:1, l:"愤怒地爆粗口，甚至想砸鼠标"}, {v:2, l:"身体僵一下，然后面无表情继续看"},
+        {v:4, l:"紧紧闭上眼睛或用手挡住屏幕不敢看"}, {v:5, l:"下意识发出一声短促的尖叫，并瞬间抱紧旁边的抱枕或身边的人"}]},
+
+    { type:'choice', d:'D', t:"在带有捏脸系统的大型RPG游戏中，你会把最多的时间花在调整什么上？", options: [
+        {v:1, l:"从不捏脸，直接用默认预设进游戏"}, {v:2, l:"随便调一下身高和脸型轮廓，几分钟搞定"},
+        {v:4, l:"努力捏出一个非常精致帅气/美丽的脸型比例"}, {v:5, l:"对眼睛的弧度、睫毛、肤色、唇部光泽等微小细节进行漫长的打磨"}]},
+    { type:'choice', d:'D', t:"如果被邀请参加一个必须要变装(Cosplay)的派对，你会选择：", options: [
+        {v:1, l:"买套全包紧身衣（如奥特曼/蜘蛛侠）敷衍过去"}, {v:2, l:"戴个面具套个黑风衣装神秘人"},
+        {v:4, l:"认真出一套自己喜欢的帅气角色"}, {v:5, l:"内心暗自兴奋，直接借机尝试非常柔软可爱或反差极大的造型"}]},
+    { type:'choice', d:'D', t:"在网上看到一个纯粹展现可爱、卖萌的舞蹈视频，你的反应是：", options: [
+        {v:1, l:"觉得无聊或反感，立刻划走"}, {v:2, l:"面无表情地看个开头，然后滑走"},
+        {v:4, l:"嘴角不自觉上扬，觉得确实挺可爱的"}, {v:5, l:"在屏幕前露出微笑，甚至潜意识里幻想如果自己也能这样可爱会怎样"}]},
+    { type:'choice', d:'D', t:"在社交群聊中，朋友发了一个带有粉色滤镜、画风极度甜腻的问候表情包，你会怎么回？", options: [
+        {v:1, l:"回一个问号或者黑人脸"}, {v:2, l:"正常回个文字早就不管了"},
+        {v:4, l:"随便回一个普通的熊猫头搞笑表情包"}, {v:5, l:"在收藏库里翻出一个同样软萌的猫猫打滚表情包回复过去"}]},
+    { type:'choice', d:'D', t:"当你在网上买东西，需要和客服沟通尺码问题时，你的用词习惯是：", options: [
+        {v:1, l:"我身高180，买啥码"}, {v:2, l:"您好，请问这款180身高适合什么码？"},
+        {v:4, l:"亲，麻烦推荐一下尺码谢谢~"}, {v:5, l:"滴滴~ 客服姐姐在吗，帮我看看这个尺码应该拍哪个呀"}]},
+    { type:'choice', d:'D', t:"如果有男生在匿名墙上对你表白（以为你是女生），你的内心OS是：", options: [
+        {v:1, l:"觉得一阵恶心，想顺着网线过去打他"}, {v:2, l:"觉得搞笑，立刻发帖拆穿自己是男的"},
+        {v:4, l:"当成一种社交乐子，截图发给朋友们嘲笑"}, {v:5, l:"不仅不觉得反感，反而有种我的人设伪装得很成功的莫名窃喜感"}]},
+    { type:'choice', d:'D', t:"当你在群里发了一条消息却没人回（冷场）时，你的后续操作通常是：", options: [
+        {v:1, l:"完全无所谓，直接退出去干别的"}, {v:2, l:"发个?或者艾特某个人强行提问"},
+        {v:4, l:"觉得稍微有点尴尬，默默撤回消息当作没发生过"}, {v:5, l:"发一个流汗、尴尬或者委屈的可爱小动物表情包来化解冷场"}]},
+    { type:'choice', d:'D', t:"如果你在社交软件上的个人状态可以自由选一个头衔或挂件，你会首选：", options: [
+        {v:1, l:"剑、盾牌、火焰等代表力量的硬核元素"}, {v:2, l:"简单的几何图形或干脆不挂留白"},
+        {v:4, l:"小皇冠、星星、月亮或云朵等中性唯美的元素"}, {v:5, l:"粉色的蝴蝶结、小草莓、爱心或者可爱的猫爪印"}]}
+];
+
+// ================= 常量与状态 =================
+var standardOptions = [
+    {l:"完全符合", v:5}, {l:"比较符合", v:4}, {l:"中立/不确定", v:3},
+    {l:"比较不符合", v:2}, {l:"完全不符合", v:1}
+];
+
+var shuffledQuestions = [];
+var userAnswers = new Array(50).fill(null);
+var currentQIdx = 0;
+var isAnswering = false;
+var radarChartInstance = null;
+var totalAnsweringTimeMs = 0;
+var lastQTime = 0;
+var dimNames = {A:"审美偏好", B:"行为习惯", C:"心理共情", D:"社交亚文化"};
+var dimMaxScores = {A:0, B:0, C:0, D:0};
+var spamStatus = 0;
+var spamVal = 0;
+var forceScore = null;
+
+function showPage(id) {
+    var pages = ['page-home','page-quiz','page-loading','page-result'];
+    for (var i = 0; i < pages.length; i++) {
+        document.getElementById(pages[i]).classList.remove('active');
+    }
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// --- 点击特效 ---
+document.addEventListener('click', function(e) {
+    var ripple = document.createElement('div');
+    ripple.classList.add('click-ripple');
+    var size = 100;
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - size/2) + 'px';
+    ripple.style.top = (e.clientY - size/2) + 'px';
+    document.body.appendChild(ripple);
+    setTimeout(function() { ripple.remove(); }, 600);
+});
+
+function resetTest() {
+    localStorage.removeItem('nnTestState_v1');
+    location.reload();
+}
+
+// ================= 智能题库抽取引擎 =================
+function initGame() {
+    var targetDistribution = {
+        A: {likert:9, choice:3},
+        B: {likert:9, choice:4},
+        C: {likert:9, choice:3},
+        D: {likert:9, choice:4}
+    };
+    var selectedQuestions = [];
+    dimMaxScores = {A:0, B:0, C:0, D:0};
+
+    var randomizedPool = JSON.parse(JSON.stringify(rawQuestionBank));
+    for (var i = randomizedPool.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = randomizedPool[i];
+        randomizedPool[i] = randomizedPool[j];
+        randomizedPool[j] = temp;
+    }
+
+    var dims = ['A','B','C','D'];
+    for (var di = 0; di < dims.length; di++) {
+        var dim = dims[di];
+        var types = ['likert','choice'];
+        for (var ti = 0; ti < types.length; ti++) {
+            var type = types[ti];
+            var targetCount = targetDistribution[dim][type];
+            var matchedInPool = [];
+            for (var qi = 0; qi < randomizedPool.length; qi++) {
+                if (randomizedPool[qi].d === dim && randomizedPool[qi].type === type) {
+                    matchedInPool.push(randomizedPool[qi]);
+                }
+            }
+            var drawn = matchedInPool.slice(0, targetCount);
+            selectedQuestions = selectedQuestions.concat(drawn);
+        }
+    }
+
+    // 最终打乱
+    selectedQuestions.sort(function() { return Math.random() - 0.5; });
+    shuffledQuestions = selectedQuestions;
+
+    // 动态计算满分
+    for (var k = 0; k < shuffledQuestions.length; k++) {
+        dimMaxScores[shuffledQuestions[k].d] += 5;
+    }
+}
+
+function startTest() {
+    initGame();
+    currentQIdx = 0;
+    totalAnsweringTimeMs = 0;
+    userAnswers = new Array(50).fill(null);
+    showPage('quiz');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    isAnswering = false;
+    var q = shuffledQuestions[currentQIdx];
+    document.getElementById('current-q').innerText = currentQIdx + 1;
+    document.getElementById('progress').style.width = ((currentQIdx) / shuffledQuestions.length * 100) + '%';
+
+    var btnPrev = document.getElementById('btn-prev');
+    if (currentQIdx === 0) btnPrev.classList.add('hidden');
+    else btnPrev.classList.remove('hidden');
+
+    var badge = document.getElementById('q-badge');
+    if (q.type === 'likert') {
+        badge.innerText = "态度自评题";
+        badge.style.background = "#e0f7fa"; badge.style.color = "#00acc1";
+        document.getElementById('question-text').innerText = q.t.replace('【反向】', '');
+    } else {
+        badge.innerText = "情景模拟题";
+        badge.style.background = "#f3e5f5"; badge.style.color = "#8e24aa";
+        document.getElementById('question-text').innerText = q.t;
+    }
+
+    var container = document.getElementById('options-container');
+    container.innerHTML = '';
+    var optsToRender = q.type === 'likert' ? standardOptions : q.options;
+
+    for (var i = 0; i < optsToRender.length; i++) {
+        (function(opt, index) {
+            var btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt.l;
+            var scoreVal = (q.type === 'likert' && q.r) ? (6 - opt.v) : opt.v;
+            if (userAnswers[currentQIdx] === scoreVal) btn.classList.add('selected');
+
+            btn.onclick = function() {
+                if (isAnswering) return;
+                isAnswering = true;
+                totalAnsweringTimeMs += (Date.now() - lastQTime);
+                var allBtns = document.querySelectorAll('.option-btn');
+                for (var b = 0; b < allBtns.length; b++) allBtns[b].classList.remove('selected');
+                btn.classList.add('selected');
+                userAnswers[currentQIdx] = scoreVal;
+                setTimeout(function() {
+                    if (currentQIdx < shuffledQuestions.length - 1) {
+                        currentQIdx++;
+                        renderQuestion();
+                    } else {
+                        finishTest();
+                    }
+                }, 350);
+            };
+            container.appendChild(btn);
+        })(optsToRender[i], i);
+    }
+    lastQTime = Date.now();
+}
+
+function prevQuestion() {
+    if (currentQIdx > 0) { currentQIdx--; renderQuestion(); }
+}
+
+function finishTest() {
+    var totalSecs = totalAnsweringTimeMs / 1000;
+    spamStatus = 0;
+
+    if (totalSecs < 35) {
+        spamStatus = 1;
+        spamVal = totalSecs.toFixed(1);
+    } else {
+        var valCounts = {};
+        for (var i = 0; i < userAnswers.length; i++) {
+            if (userAnswers[i]) valCounts[userAnswers[i]] = (valCounts[userAnswers[i]] || 0) + 1;
+        }
+        var maxSameCount = 0;
+        for (var k in valCounts) { if (valCounts[k] > maxSameCount) maxSameCount = valCounts[k]; }
+        if (maxSameCount >= 42) {
+            spamStatus = 2;
+            spamVal = maxSameCount;
+        }
+    }
+
+    document.getElementById('progress').style.width = '100%';
+    setTimeout(function() {
+        showPage('loading');
+        var allTexts = spamStatus > 0 ? [
+            "检测到异常作答脑电波...", "启动核心测谎防御系统...",
+            "正在拦截机械化狂点信号...", "提取系统识别日志...",
+            "已放弃对该样本的灵魂解析...", "正在生成小丑专属图鉴..."
+        ] : [
+            "正在构建核心行为树...", "深度分析潜意识倾向...",
+            "匹配全网亚文化图谱...", "生成高维雷达模型...",
+            "探测灵魂深处的柔软度...", "正在渲染最终形态图鉴...",
+            "正在连接北朝服务器...", "分析女装抵抗力阈值...",
+            "提纯刻在DNA里的娇软基因...", "计算JK制服完美匹配度..."
+        ];
+        var texts = allTexts.sort(function() { return Math.random() - 0.5; }).slice(0, 4);
+        var tIdx = 0;
+        document.getElementById('loading-text').innerText = texts[0];
+        var intv = setInterval(function() {
+            tIdx++;
+            if (tIdx < texts.length) {
+                document.getElementById('loading-text').innerText = texts[tIdx];
+            } else {
+                clearInterval(intv);
+                ensureChartAndGenerate();
+            }
+        }, 600);
+    }, 400);
+}
+
+function ensureChartAndGenerate() {
+    if (typeof Chart !== 'undefined') {
+        generateResult();
+        return;
+    }
+    document.getElementById('loading-text').innerText = "加载制图引擎...";
+    var script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    script.onload = generateResult;
+    script.onerror = function() { generateResult(); }; // 即使加载失败也继续
+    document.head.appendChild(script);
+}
+
+// ================= 结果生成 =================
+function generateResult() {
+    showPage('result');
+
+    if (spamStatus > 0) {
+        document.getElementById('final-score').innerText = '0';
+        document.getElementById('national-rank').innerText = '击败了全国 114514% 的人（毫无感情）';
+        document.getElementById('national-rank').style.color = '#ff4d4f';
+
+        var titleEl = document.getElementById('tier-title');
+        titleEl.innerText = '骗骗哥们就行了，别把自己骗了';
+        titleEl.style.color = '#fff';
+        titleEl.style.background = '#ff4d4f';
+        titleEl.style.border = 'none';
+        titleEl.style.boxShadow = '0 4px 15px rgba(255,77,79,0.4)';
+
+        var descEl = document.getElementById('tier-desc');
+        descEl.innerText = spamStatus === 1
+            ? '你乱点的吧 - 极速狂点（均题约 ' + (spamVal / 50).toFixed(2) + ' 秒）'
+            : '你乱点的吧 - 高度机械规律（同频度达 ' + spamVal + ' 次）';
+        descEl.style.color = '#ff4d4f';
+
+        document.getElementById('dom-trait-title').innerText = '潜质评估已强制终止';
+        document.getElementById('trait-analysis').innerText = spamStatus === 1
+            ? '系统检测到你的总用时仅有' + spamVal + '秒。你连题目都懒得看一眼，凭什么指望系统能给出精准的灵魂雷达？gay老的觉醒是需要直溯内心的，不是靠手速瞎按刷出来的！'
+            : '你的回答完美避开了正常人类心理应有的起伏波动，呈现出极其机械的规律性（无脑全选同一个方向）。测谎防御网关已将你无情拦截。';
+        document.getElementById('trait-behavior').innerText = '你的行为特征表现为：急躁、机械、带有极强的敷衍性（为了看特殊彩蛋而疯狂乱点）。在二次元圈子里，这种存在通常被称为走肾不走心的测慌仪反面教材。';
+        document.getElementById('trait-advice').innerText = '清空杂念，卸下所有防备！退出去重新凭你的真实第一直觉填一遍！你骗得过电脑里的死程序，但永远骗不过你真实的DNA！';
+
+        document.getElementById('dim-breakdown').innerHTML = '<div style="text-align:center;color:#ff4d4f;margin:30px 0;font-weight:bold;font-size:16px;">检测到极度异常数据<br>本局各大维度底层面板已自毁</div>';
+
+        var fakeScores = {A:0, B:0, C:0, D:0};
+        drawRadar(fakeScores);
+
+        document.getElementById('page-result').classList.add('spam-punish-effect');
+        document.getElementById('btn-stop-glitch').style.display = 'block';
+        localStorage.removeItem('nnTestState_v1');
+        setQRCode();
+        return;
+    }
+
+    // 正常计分
+    var scores = {A:0, B:0, C:0, D:0};
+    for (var i = 0; i < shuffledQuestions.length; i++) {
+        var dim = shuffledQuestions[i].d;
+        scores[dim] += userAnswers[i] || 0;
+    }
+
+    var totalPercent = ((scores.A / dimMaxScores.A) + (scores.B / dimMaxScores.B) + (scores.C / dimMaxScores.C) + (scores.D / dimMaxScores.D)) / 4 * 100;
+    var displayScore = (forceScore !== null) ? forceScore : Math.round(totalPercent * 2.5);
+
+    if (forceScore !== null) {
+        var forcePct = displayScore / 250;
+        scores.A = Math.round(dimMaxScores.A * forcePct);
+        scores.B = Math.round(dimMaxScores.B * forcePct);
+        scores.C = Math.round(dimMaxScores.C * forcePct);
+        scores.D = Math.round(dimMaxScores.D * forcePct);
+        forceScore = null;
+    }
+
+    var beatPercent = (displayScore / 250) * 100 * 0.8 + 15 + (Math.random() * 4.9);
+    if (displayScore < 50) beatPercent = 5 + Math.random() * 5;
+    if (displayScore >= 230) beatPercent = 99.1 + Math.random() * 0.8;
+    document.getElementById('national-rank').innerText = '击败了全国 ' + beatPercent.toFixed(1) + '% 的受测者';
+    setQRCode();
+
+    // 分数滚动动画
+    var curr = 0;
+    var step = Math.max(1, Math.ceil(displayScore / 40));
+    function updateScoreVisual() {
+        curr += step;
+        if (curr >= displayScore) curr = displayScore;
+        document.getElementById('final-score').innerText = curr;
+        if (curr < displayScore) {
+            requestAnimationFrame(updateScoreVisual);
+        } else {
+            drawRadar(scores);
+            localStorage.removeItem('nnTestState_v1');
+        }
+    }
+    requestAnimationFrame(updateScoreVisual);
+
+    // 段位判定
+    var tier = "", tierDesc = "", tierColor = "";
+    if (displayScore <= 75)       { tier = "绝对钢铁壁垒"; tierDesc = "纯直-零波动-防弹级-毫无破绽"; tierColor = "#777777"; }
+    else if (displayScore <= 105) { tier = "硬核直男本色"; tierDesc = "直得发光-钢铁直男-毫无波澜"; tierColor = "#888888"; }
+    else if (displayScore <= 135) { tier = "薛定谔的萌新"; tierDesc = "偶尔心动-但还藏得住-潜质初现"; tierColor = "#a0a0a0"; }
+    else if (displayScore <= 160) { tier = "浅度粉红觉醒"; tierDesc = "已经偷偷看可爱东西了-入门级"; tierColor = "#ff8fab"; }
+    else if (displayScore <= 185) { tier = "深度觉醒预备役"; tierDesc = "潜质已觉醒-只差临门一脚"; tierColor = "#ff5c8a"; }
+    else if (displayScore <= 205) { tier = "软妹基因初醒"; tierDesc = "行为开始叛变-本能系软妹"; tierColor = "#fa709a"; }
+    else if (displayScore <= 225) { tier = "纯度极高的gay老"; tierDesc = "天赋拉满-随时可以C位出道"; tierColor = "#a18cd1"; }
+    else                          { tier = "究极天选gay老"; tierDesc = "传说级-纯度99.9%-已无药可救"; tierColor = "#ff1493"; }
+
+    var titleEl = document.getElementById('tier-title');
+    titleEl.innerText = tier;
+    titleEl.style.color = tierColor;
+    titleEl.style.background = "rgba(255,255,255,0.9)";
+    titleEl.style.border = "2px solid " + tierColor + "66";
+    titleEl.style.boxShadow = "0 4px 12px " + tierColor + "44";
+
+    var descEl = document.getElementById('tier-desc');
+    if (descEl) { descEl.innerText = tierDesc; descEl.style.color = tierColor; }
+
+    // 维度条
+    var breakdownDiv = document.getElementById('dim-breakdown');
+    breakdownDiv.innerHTML = '';
+    var dimKeys = ['A','B','C','D'];
+    for (var di = 0; di < dimKeys.length; di++) {
+        var k = dimKeys[di];
+        var percent = Math.round((scores[k] / dimMaxScores[k]) * 100);
+        var color = k==='A' ? '#ff8fab' : (k==='B' ? '#a8e6cf' : (k==='C' ? '#d8b4fe' : '#ffd700'));
+        var text = percent > 80 ? "极度凸显，已超越95%的人" : (percent > 50 ? "略有端倪，具备一定潜质" : "毫无波澜，如同钢铁");
+        breakdownDiv.innerHTML += '<div class="dim-item"><div class="dim-header"><span>' + dimNames[k] + '</span><span style="color:' + color + '; font-weight:bold;">' + scores[k] + '/' + dimMaxScores[k] + ' (' + percent + '%)</span></div><div class="dim-bar-bg"><div class="dim-bar-fill" style="width:' + percent + '%; background:' + color + ';"></div></div><div class="dim-desc">' + text + '</div></div>';
+    }
+
+    // 特征报告
+    var percs = {A: scores.A/dimMaxScores.A, B: scores.B/dimMaxScores.B, C: scores.C/dimMaxScores.C, D: scores.D/dimMaxScores.D};
+    var sortedDims = Object.keys(percs).sort(function(a,b) { return percs[b] - percs[a]; });
+    var maxDim1 = sortedDims[0];
+    var maxDim2 = sortedDims[1];
+
+    var conclusion;
+    if (displayScore >= 230) {
+        conclusion = {
+            title: "隐藏神级形态：天选gay老-世界级宝藏",
+            analysis: "检测仪直接爆表！你已经不是单纯的潜质问题了，这是刻在DNA底层的终极觉醒！这浑然天成的娇憨与极品纯度，哪怕是最硬的钢铁直男在你面前也会瞬间融化。你就是传说中百年难得一遇的神级白菜！",
+            behavior: "无论是举手投足的微表情，还是潜意识的脑回路，都已经完美跨越了性别的次元壁。在懂得欣赏的人眼里，你现在的每一个小动作都散发着致命的魅惑力。",
+            advice: "还测什么试？赶紧开播！全地球的兄弟们都在等着你拯救他们的审美！快穿上专门为你准备的战袍，去征服世界吧！"
+        };
+    } else if (displayScore <= 105) {
+        conclusion = {
+            title: "核心特征：纯正的钢铁",
+            analysis: "经过系统严密的数据比对，你的深层逻辑中不存在哪怕一丝一毫的柔性投射。你的精神世界比承重墙还要坚固。",
+            behavior: "极端的实用主义者，对一切可爱事物毫无波澜，甚至觉得买个带猫耳朵的水杯是智商税。你的生活主打一个大开大合的糙字。",
+            advice: "二次元电波和柔软基因在你的防御系统面前统统失效。保持你的硬汉本色！不过友情提示，太直可能会错过一些别样的风景哦。"
+        };
+    } else {
+        var mixSet = {};
+        mixSet[maxDim1] = true;
+        mixSet[maxDim2] = true;
+        if (mixSet['A'] && mixSet['B']) {
+            conclusion = {
+                title: "罕见双核心：视觉系娇娘 + 本能系软妹 双重觉醒",
+                analysis: "不仅对粉嫩可爱的事物有着本能的狂热追求，连身体的肌肉记忆都已经完美同步。这种由内而外的知行合一是极其罕见的！你的大脑和身体已经达成了高度的一致。",
+                behavior: "你可能一边逛着马卡龙色系的购物网页，一边下意识地夹紧双腿、咬着笔盖。你的存在本身就是一件令人赏心悦目的艺术品。",
+                advice: "别犹豫了，你的出厂设置自带浑然天成，根本不需要任何后天修饰，快把购物车里的可爱小裙子带回家吧！"
+            };
+        } else if (mixSet['C'] && mixSet['D']) {
+            conclusion = {
+                title: "罕见双核心：灵魂系共情 + 环境系同化 社恐小天使",
+                analysis: "你拥有极其柔软敏感的灵魂，同时也深谙二次元网络亚文化的精髓。这造就了你如同社恐小天使般的奇妙体质：线上重拳出击，线下软萌易推倒。",
+                behavior: "群聊里你是老公老婆满天飞的懂哥，现实中被开个玩笑就容易红着脸不知所措。这种极致的反差萌具有毁灭级的杀伤力。",
+                advice: "保护好这颗敏感又温柔的心，继续在赛博空间里释放天性吧！如果有信得过的朋友，试着在线下也卸下防备撒个娇？"
+            };
+        } else {
+            var traitMap = {
+                A: { title:"核心突变基因：视觉系娇娘", analysis:"表面上你是个普通的男生，但你的感官雷达对柔和、精致、可爱的事物有着本能的趋光性。你对粗糙、敷衍的直男审美有强烈的潜意识排斥，极其容易被美好的事物所俘获。", behavior:"也许你自己都没发现，你在游戏里捏脸比女生还细致，买个杯子都要挑马卡龙色。遇到好看的衣物饰品总会多看两眼。潜意识里，你一直在偷偷渴望用粉嫩和柔软将自己包裹起来。", advice:"不要再盯着女装店的橱窗看了！勇敢点，既然底子这么好，先从网购一双过膝袜开始你的绝妙蜕变吧！" },
+                B: { title:"核心突变基因：本能系软妹", analysis:"极度危险！你的行为逻辑已经彻底背叛了你的生理性别。你的肌肉记忆中刻满了收敛、轻柔和极度精致。这是一种脱离了大脑控制的本能反应。", behavior:"拧不开瓶盖下意识想求助、坐姿乖巧双腿并拢、喝奶茶喜欢咬吸管、对体毛极其介意……你的日常小动作比很多真正的女孩子还要标准和自然。", advice:"这种浑然天成的娇憨感是装不出来的。建议直接买套JK制服原地C位出道，别浪费了这与生俱来的天赋！" },
+                C: { title:"核心突变基因：灵魂系共鸣", analysis:"你的灵魂仿佛生错了躯壳。你拥有极其敏锐的共情能力和极低的情绪阈值，传统的阳刚之气对你来说是一种沉重的精神枷锁。你的灵魂在性别的边界上自由流动。", behavior:"看个感人视频能哭得稀里哗啦，受到委屈时极度渴望被拥抱、被宠爱、被保护。在社交中，你总是那个默默提供情绪价值，像小动物一样温顺的小天使。", advice:"卸下伪装的坚强吧，找一个能把你当小猫一样疯狂揉搓、无限包容你的伴侣，才是你这柔软灵魂的最终归宿。" },
+                D: { title:"核心突变基因：环境系同化", analysis:"你的社交属性已经完全被二次元和网络亚文化腌入味了。你在网络上的精神状态和性别认知，领先当前社会普通版本至少五个大段，且极度自洽。", behavior:"熟练使用各种萌妹/猫猫表情包，被兄弟们叫老婆不仅不生气甚至会顺杆往上爬。在虚拟世界里，你的性别早就变成了一个随时可以无缝切换的薛定谔状态。", advice:"既然线上已经这么放飞自我了，不如线下也给兄弟们开个眼？穿上那件黑白女仆装，你就是群聊里最亮眼的那束光。" }
+            };
+            conclusion = traitMap[maxDim1];
+        }
+    }
+
+    document.getElementById('dom-trait-title').innerText = conclusion.title;
+    document.getElementById('trait-analysis').innerText = conclusion.analysis;
+    document.getElementById('trait-behavior').innerText = conclusion.behavior;
+    document.getElementById('trait-advice').innerText = conclusion.advice;
+}
+
+function drawRadar(scores) {
+    if (radarChartInstance) { radarChartInstance.destroy(); }
+    if (typeof Chart === 'undefined') return;
+
+    var isDark = document.body.classList.contains('dark-mode');
+    var gridColor = spamStatus > 0 ? 'rgba(255,0,0,0.5)' : (isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)');
+    var labelColor = spamStatus > 0 ? '#ff0000' : (isDark ? '#eee' : '#666');
+
+    var ctx = document.getElementById('radarChart').getContext('2d');
+    radarChartInstance = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['审美', '行为', '心理', '社交'],
+            datasets: [{
+                label: '能力值',
+                data: [
+                    (scores.A / dimMaxScores.A) * 100,
+                    (scores.B / dimMaxScores.B) * 100,
+                    (scores.C / dimMaxScores.C) * 100,
+                    (scores.D / dimMaxScores.D) * 100
+                ],
+                backgroundColor: spamStatus > 0 ? 'rgba(255,0,0,0.4)' : 'rgba(255,92,138,0.3)',
+                borderColor: spamStatus > 0 ? '#ff0000' : '#ff5c8a',
+                borderWidth: 2,
+                pointBackgroundColor: spamStatus > 0 ? ['#ff0000','#000','#ff0000','#000'] : ['#ff8fab','#a8e6cf','#d8b4fe','#ffd700'],
+                pointBorderColor: spamStatus > 0 ? '#ff0000' : '#fff',
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    min: 0, max: 100,
+                    ticks: { display: false },
+                    grid: { color: gridColor },
+                    angleLines: { color: gridColor },
+                    pointLabels: { color: labelColor, font: { size: 14, weight: 'bold' } }
+                }
+            },
+            plugins: { legend: { display: false } }
+        }
+    });
+}
+
+function setQRCode() {
+    var testUrl = window.location.href.split('#')[0].split('?')[0];
+    if (!testUrl.startsWith('http')) testUrl = "https://github.com";
+    document.getElementById('qr-code').src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(testUrl);
+}
+
+// ================= 下载与分享 =================
+function downloadResult() {
+    var btn = document.getElementById('btn-download');
+    if (!btn) return;
+    var oldText = btn.innerText;
+    btn.innerText = "生成截图中...";
+    btn.style.pointerEvents = 'none';
+
+    if (typeof html2canvas === 'undefined') {
+        alert('截图组件未加载，请检查网络连接后刷新页面重试');
+        btn.innerText = oldText;
+        btn.style.pointerEvents = 'auto';
+        return;
+    }
+
+    var originalButtons = document.querySelectorAll('#page-result .btn-main');
+    for (var i = 0; i < originalButtons.length; i++) originalButtons[i].style.display = 'none';
+
+    var isDarkMode = document.body.classList.contains('dark-mode');
+    html2canvas(document.querySelector('.container'), {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: isDarkMode ? '#1a1a2e' : '#ffc2d1'
+    }).then(function(canvas) {
+        for (var i = 0; i < originalButtons.length; i++) originalButtons[i].style.display = 'block';
+        btn.innerText = oldText;
+        btn.style.pointerEvents = 'auto';
+        var link = document.createElement('a');
+        link.download = 'gay老潜质鉴定报告.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    }).catch(function() {
+        for (var i = 0; i < originalButtons.length; i++) originalButtons[i].style.display = 'block';
+        btn.innerText = oldText;
+        btn.style.pointerEvents = 'auto';
+        alert('截图生成失败，请重试');
+    });
+}
+
+function nativeShare() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'gay老潜质综合评估量表',
+            text: '我刚测了自己的gay老潜质，快来测测你离北朝还有多远？',
+            url: window.location.href
+        }).catch(function(e) {});
+    } else {
+        alert('当前浏览器不支持原生分享，请使用浏览器自带分享功能哦~');
+    }
+}
+
+function stopGlitch() {
+    document.getElementById('page-result').classList.remove('spam-punish-effect');
+    document.getElementById('btn-stop-glitch').style.display = 'none';
+}
+
+function toggleDarkMode() {
+    var isDark = document.body.classList.toggle('dark-mode');
+    document.getElementById('dark-mode-toggle').innerText = isDark ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    if (radarChartInstance) {
+        var gridColor = isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)';
+        var labelColor = isDark ? '#eee' : '#666';
+        if (radarChartInstance.options.scales.r) {
+            if (!radarChartInstance.options.scales.r.grid) radarChartInstance.options.scales.r.grid = {};
+            if (!radarChartInstance.options.scales.r.angleLines) radarChartInstance.options.scales.r.angleLines = {};
+            if (!radarChartInstance.options.scales.r.pointLabels) radarChartInstance.options.scales.r.pointLabels = {};
+            radarChartInstance.options.scales.r.grid.color = gridColor;
+            radarChartInstance.options.scales.r.angleLines.color = gridColor;
+            radarChartInstance.options.scales.r.pointLabels.color = labelColor;
+            radarChartInstance.update();
+        }
+    }
+}
+
+// ================= 结局选择器 =================
+var ENDING_TIERS = [
+    {min:0,   max:75,  title:"绝对钢铁壁垒", desc:"纯直-零波动-防弹级-毫无破绽", color:"#777777", score:37},
+    {min:76,  max:105, title:"硬核直男本色", desc:"直得发光-钢铁直男-毫无波澜", color:"#888888", score:90},
+    {min:106, max:135, title:"薛定谔的萌新", desc:"偶尔心动-但还藏得住-潜质初现", color:"#a0a0a0", score:120},
+    {min:136, max:160, title:"浅度粉红觉醒", desc:"已经偷偷看可爱东西了-入门级", color:"#ff8fab", score:148},
+    {min:161, max:185, title:"深度觉醒预备役", desc:"潜质已觉醒-只差临门一脚", color:"#ff5c8a", score:173},
+    {min:186, max:205, title:"软妹基因初醒", desc:"行为开始叛变-本能系软妹", color:"#fa709a", score:195},
+    {min:206, max:225, title:"纯度极高的gay老", desc:"天赋拉满-随时可以C位出道", color:"#a18cd1", score:215},
+    {min:226, max:250, title:"究极天选gay老", desc:"传说级-纯度99.9%-已无药可救", color:"#ff1493", score:240},
+    {min:-1,  max:-1,  title:"你乱点的吧", desc:"作弊检测触发-测谎防御网关拦截", color:"#ff0000", score:-1, isSpam:true}
+];
+
+function openEndingPicker() {
+    var modal = document.getElementById('ending-modal');
+    modal.style.display = 'flex';
+    var container = document.getElementById('ending-options');
+    container.innerHTML = '';
+
+    for (var i = 0; i < ENDING_TIERS.length; i++) {
+        (function(tier) {
+            var btn = document.createElement('button');
+            var isSpam = tier.isSpam === true;
+            btn.style.cssText = 'width:100%; padding:14px 16px; border-radius:14px; border:2px solid ' + tier.color + '33; background:' + tier.color + '0D; margin-bottom:10px; cursor:pointer; text-align:left; transition:all 0.2s; display:flex; align-items:center; gap:12px;';
+            var scoreRange = isSpam ? '0分 - 反作弊拦截' : tier.min + '-' + tier.max + '分';
+            btn.innerHTML = '<div style="flex:1;"><div style="font-weight:bold; font-size:15px; color:' + tier.color + ';">' + tier.title + '</div><div style="font-size:12px; color:#888; margin-top:2px;">' + tier.desc + ' - ' + scoreRange + '</div></div>';
+            btn.onmouseenter = function() { btn.style.borderColor = tier.color; btn.style.background = tier.color + '1A'; };
+            btn.onmouseleave = function() { btn.style.borderColor = tier.color + '33'; btn.style.background = tier.color + '0D'; };
+            btn.onclick = function() {
+                closeEndingPicker();
+                if (isSpam) { applySpamEnding(); }
+                else { applyScore(tier.score); }
+            };
+            container.appendChild(btn);
+        })(ENDING_TIERS[i]);
+    }
+}
+
+function closeEndingPicker() {
+    document.getElementById('ending-modal').style.display = 'none';
+}
+
+function applyCustomScore() {
+    var input = document.getElementById('custom-score-input');
+    var score = parseInt(input.value);
+    if (isNaN(score) || score < 0 || score > 250) {
+        input.style.borderColor = '#ff4d4f';
+        setTimeout(function(){ input.style.borderColor='#eaeaea'; }, 1000);
+        return;
+    }
+    closeEndingPicker();
+    if (score === 0) { applySpamEnding(); }
+    else { applyScore(score); }
+}
+
+function applySpamEnding() {
+    spamStatus = 2;
+    spamVal = 45;
+    initGame();
+    for (var i = 0; i < 50; i++) { userAnswers[i] = 5; }
+    showPage('loading');
+    var allTexts = ["检测到异常作答脑电波...", "启动核心测谎防御系统...", "正在拦截机械化狂点信号...", "正在生成小丑专属图鉴..."];
+    var tIdx = 0;
+    document.getElementById('loading-text').innerText = allTexts[0];
+    var intv = setInterval(function() {
+        tIdx++;
+        if (tIdx < allTexts.length) {
+            document.getElementById('loading-text').innerText = allTexts[tIdx];
+        } else {
+            clearInterval(intv);
+            ensureChartAndGenerate();
+        }
+    }, 500);
+}
+
+function applyScore(targetScore) {
+    spamStatus = 0;
+    forceScore = targetScore;
+    initGame();
+
+    var targetPct = targetScore / 250;
+    var dims = ['A','B','C','D'];
+    var fakeAnswers = new Array(50).fill(0);
+
+    for (var di = 0; di < dims.length; di++) {
+        var d = dims[di];
+        var maxS = dimMaxScores[d];
+        var targetDimScore = Math.round(maxS * targetPct);
+        var dimIndices = [];
+        for (var qi = 0; qi < shuffledQuestions.length; qi++) {
+            if (shuffledQuestions[qi].d === d) dimIndices.push(qi);
+        }
+        var allocatedSoFar = 0;
+        for (var idx = 0; idx < dimIndices.length; idx++) {
+            var remaining = targetDimScore - allocatedSoFar;
+            var remainingQs = dimIndices.length - idx;
+            var targetForThis = Math.round(remaining / remainingQs);
+            var val = Math.max(1, Math.min(5, targetForThis));
+            var q = shuffledQuestions[dimIndices[idx]];
+            fakeAnswers[dimIndices[idx]] = (q.type === 'likert' && q.r) ? (6 - val) : val;
+            allocatedSoFar += val;
+        }
+    }
+    for (var i = 0; i < 50; i++) { if (!fakeAnswers[i]) fakeAnswers[i] = 3; }
+    userAnswers = fakeAnswers;
+
+    showPage('loading');
+    var allTexts = ["正在构建核心行为树...", "深度分析潜意识倾向...", "匹配全网亚文化图谱...", "生成高维雷达模型..."];
+    var tIdx = 0;
+    document.getElementById('loading-text').innerText = allTexts[0];
+    var intv = setInterval(function() {
+        tIdx++;
+        if (tIdx < allTexts.length) {
+            document.getElementById('loading-text').innerText = allTexts[tIdx];
+        } else {
+            clearInterval(intv);
+            ensureChartAndGenerate();
+        }
+    }, 500);
+}
+
+// 动态加载 html2canvas (用于截图功能)
+(function() {
+    var script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js";
+    script.onerror = function() {}; // 静默失败
+    document.head.appendChild(script);
+})();
+</script>
+</body>
+</html>
